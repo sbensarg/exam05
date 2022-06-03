@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include "ASpell.hpp"
-#include "vector"
+#include <map>
 class Warlock
 {
 private:
@@ -10,10 +10,10 @@ private:
 	Warlock(void); // canonical
 	Warlock (Warlock const &rhs); // canonical
 	Warlock &operator=(Warlock const &src); // canonical
+	std::map<std::string ,ASpell *> stock;
 public:
 	Warlock(std::string n, std::string t);
 	~Warlock(); // canonical
-	std::vector<ASpell *> stock;
 
 	const std::string & getName(void) const;
 	const std::string & getTitle(void) const;

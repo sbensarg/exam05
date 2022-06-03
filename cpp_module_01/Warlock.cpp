@@ -13,11 +13,16 @@ Warlock::Warlock(std::string n, std::string t) : name(n), title(t)
 Warlock::~Warlock()
 {
 	std::cout << this->name << ": My job here is done!\n";
+	for (std::map<std::string ,ASpell *>::iterator it = stock.begin(); it != stock.end(); it++)
+	{
+		delete it->second;
+	}
+	stock.clear();
 }
 
-Warlock::Warlock (Warlock const &rhs)
+Warlock::Warlock (Warlock const &rhs) : name(rhs.name), title(rhs.title)
 {
-	*this = rhs;
+
 }
 
 Warlock &Warlock::operator=(Warlock const &src) 
@@ -54,24 +59,24 @@ void Warlock::introduce() const
 
 void Warlock::learnSpell(ASpell * as)
 {
-	if (as != NULL)
-		stock.push_back(as->clone());
+	if (as)
+		stock.insert(std::pair<std::string, ASpell*>(as->getName(), as->clone()));
 }
 
 void Warlock::forgetSpell(std::string sp)
 {
-	for (int i = 0; i < stock.size(); i++)
+	std::map<std::string ,ASpell *>::iterator it;
+	it = stock.find(sp);
+	if (it != stock.end())
 	{
-		if (stock[i]->getName() == sp)
-			 stock.erase(stock.begin() + i);
+		delete it->second;
+		stock.erase(it);
 	}
 }
 
 void Warlock::launchSpell(std::string sp_name, ATarget const & ref)
 {
-	for (int i = 0; i < stock.size(); i++)
-	{
-		if (stock[i]->getName() == sp_name)
-			stock[i]->lunch(ref);
-	}
+	ASpell *aspell = stock[sp_name];
+	if (aspell)
+		aspell->lunch(ref);
 }

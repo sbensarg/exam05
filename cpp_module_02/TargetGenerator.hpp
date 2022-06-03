@@ -1,20 +1,20 @@
 #pragma once
 #include <iostream>
 #include "ASpell.hpp"
-#include "vector"
 #include "SpellBook.hpp"
 #include "ATarget.hpp"
+#include <map>
 
 class TargetGenerator
 {
 private:
-	
-public:
-	TargetGenerator(void); // canonical
+	std::map<std::string, ATarget *> generator;
 	TargetGenerator (TargetGenerator const &rhs); // canonical
 	TargetGenerator &operator=(TargetGenerator const &src); // canonical;
+public:
+	TargetGenerator(void); // canonical
+	
 	~TargetGenerator(); // canonical
-	std::vector<ATarget *> generator;
 
 	void learnTargetType(ATarget* t);
 	void forgetTargetType(std::string const &tp);

@@ -11,9 +11,7 @@ protected:
 
 public:
 	Dummy(void); //canonical
-	Dummy(Dummy const & src); //canonical
-	Dummy & operator=(Dummy const & rhs); //canonical
-	~Dummy(); //canonical
+	virtual ~Dummy(); //canonical
 
 	virtual ATarget *clone() const;
 

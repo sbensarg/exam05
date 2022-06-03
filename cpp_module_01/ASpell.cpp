@@ -10,9 +10,9 @@ ASpell::ASpell(std::string n, std::string e): name(n), effects(e)
 
 }
 
-ASpell::ASpell(ASpell const & src)
+ASpell::ASpell(ASpell const & src) : name(src.name), effects(src.effects)
 {
-	*this = src;
+
 }
 
 ASpell & ASpell::operator=(ASpell const & rhs)

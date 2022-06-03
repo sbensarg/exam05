@@ -64,14 +64,7 @@ void Warlock::forgetSpell(std::string sp)
 
 void Warlock::launchSpell(std::string sp_name, ATarget const & ref)
 {
-//	if(spbook == NULL)
-		//std::cout << "NULL";
-	ASpell *ret_spbook;
-
-	ret_spbook = spbook.createSpell(sp_name);
-	
-	if (ret_spbook != NULL)
-	{
-		ret_spbook->lunch(ref);
-	}
+	ASpell *spel = spbook.createSpell(sp_name);
+	if (spel)
+		spel->lunch(ref);
 }

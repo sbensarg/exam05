@@ -10,9 +10,9 @@ ATarget::ATarget(std::string t): type(t)
 
 }
 
-ATarget::ATarget(ATarget const & src)
+ATarget::ATarget(ATarget const & src) : type(src.type)
 {
-	*this = src;
+
 }
 
 ATarget & ATarget::operator=(ATarget const & rhs)

@@ -7,17 +7,6 @@ Fwoosh::Fwoosh(void)
 	this->effects = "fwooshed";
 }
 
-
-Fwoosh::Fwoosh(Fwoosh const & src)
-{
-	*this = src;
-}
-
-Fwoosh & Fwoosh::operator=(Fwoosh const & rhs)
-{
-	return (*this);
-}
-
 Fwoosh::~Fwoosh()
 {
 

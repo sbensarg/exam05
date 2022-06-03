@@ -18,37 +18,35 @@ SpellBook &SpellBook::operator=(SpellBook const &src)
 
 SpellBook::~SpellBook()
 {
-	for (int i = 0; i < book.size(); i++)
+	for (std::map<std::string ,ASpell *>::iterator it = book.begin(); it != book.end(); it++)
 	{
-		delete book[i];
+		delete it->second;
 	}
+	book.clear();
 }
+
 void SpellBook::learnSpell(ASpell * as)
 {
-	if (as != NULL)
-	{
-		book.push_back(as->clone());
-	}
-		
+		if (as)
+		book.insert(std::pair<std::string, ASpell*>(as->getName(), as->clone()));
 }
 
 void SpellBook::forgetSpell(std::string const & sp)
 {
-	for (int i = 0; i < book.size(); i++)
+	std::map<std::string ,ASpell *>::iterator it;
+	it = book.find(sp);
+	if (it != book.end())
 	{
-		if (book[i]->getName() == sp)
-			book.erase(book.begin() + i);
+		delete it->second;
+		book.erase(it);
 	}
 }
 
 ASpell* SpellBook::createSpell(std::string const & sp_name)
 {	
-	for (int i = 0; i < book.size(); i++)
-	{
-		if (book[i]->getName() == sp_name)
-		{
-			return (book[i]);
-		}
-	}
+	std::map<std::string ,ASpell *>::iterator it;
+	it = book.find(sp_name);
+	if (it != book.end())
+		return book[sp_name];
 	return (NULL);
 }

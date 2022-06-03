@@ -8,6 +8,11 @@ TargetGenerator::TargetGenerator(void)
 
 TargetGenerator::~TargetGenerator()
 {
+	for (std::map<std::string ,ATarget *>::iterator it = generator.begin(); it != generator.end(); it++)
+	{
+		delete it->second;
+	}
+	generator.clear();
 }
 
 TargetGenerator::TargetGenerator (TargetGenerator const &rhs)
@@ -22,31 +27,26 @@ TargetGenerator &TargetGenerator::operator=(TargetGenerator const &src)
 
 void TargetGenerator::learnTargetType(ATarget* t)
 {
-	if (t != NULL)
-	{
-		generator.push_back(t->clone());
-	}
+	if (t)
+		generator.insert(std::pair<std::string, ATarget*>(t->getType(), t->clone()));
 }
 
 void TargetGenerator::forgetTargetType(std::string const &tp)
 {
-	for (int i = 0; i < generator.size(); i++)
+	std::map<std::string ,ATarget *>::iterator it;
+	it = generator.find(tp);
+	if (it != generator.end())
 	{
-		if (generator[i]->getType() == tp)
-			generator.erase(generator.begin() + i);
+		delete it->second;
+		generator.erase(it);
 	}
 }
 
 ATarget* TargetGenerator::createTarget(std::string const & ct)
 {
-	
-	for (int i = 0; i < generator.size(); i++)
-	{
-		if (generator[i]->getType() == ct)
-		{
-			//generator.push_back(generator[i]->clone());
-			return (generator[i]);
-		}
-	}
+	std::map<std::string ,ATarget *>::iterator it;
+	it = generator.find(ct);
+	if (it != generator.end())
+		return generator[ct];
 	return (NULL);
 }

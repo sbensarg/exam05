@@ -21,7 +21,7 @@ public:
 
 	virtual ATarget *clone() const = 0;
 
-
+/* ASpell const &  as   const ASpell  &  as*/
 	void getHitBySpell(ASpell const &  as) const;
 
 
